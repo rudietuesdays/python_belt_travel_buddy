@@ -47,14 +47,15 @@ def add_plan(request):
 
 def view_destination(request, id):
     destination = Trip.objects.get(id=id)
-    thisTrip = UserTrip.objects.filter(trip__id=id).exclude(user__id=request.session['uid'])
-
+    user_id=destination.user.id
+    thisTrip = UserTrip.objects.filter(trip__id=id)&UserTrip.objects.exclude(user__id=user_id)#&UserTrip.objects.exclude(user__id=user_id)
+    print thisTrip
     context = {
         'thisTrip': thisTrip,
         'destination': destination,
         'uid': request.session['uid'],
     }
-    print thisTrip
+    print user_id
     return render(request, 'travelDash_templates/destination.html', context)
 
 def join_trip(request, id):
