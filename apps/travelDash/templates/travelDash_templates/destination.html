@@ -14,9 +14,6 @@
         <p>Last day of trip: {{destination.end_date}}</p>
         <p>&nbsp;</p>
         <h3>Other users joining the trip:</h3>
-        {% if destination.user.id != uid %}
-            <p>{{destination.user.first_name}} {{destination.user.last_name}}</p>
-        {% endif %}
         {% for user in thisTrip %}
             <p>{{ user.user.first_name }} {{ user.user.last_name }}</p>
         {% endfor %}
