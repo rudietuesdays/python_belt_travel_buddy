@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Travel Buddy | Dashboard</title>
+</head>
+
+<body>
+    <a href="{% url 'loginReg:logout' %}">Logout</a>
+    <h1>Dashboard</h1>
+    <h2>Welcome, {{user.first_name}}</h2>
+    <a href="{% url 'travelDash:add_plan' %}">Add a travel plan</a>
+    <div>
+        <h3>Your Trips</h3>
+        <table>
+            <tr>
+                <th>Destination</th>
+                <th>Travel Start Date</th>
+                <th>Travel End Date</th>
+                <th>Plan</th>
+            </tr>
+            {% for trip in myTrips %}
+            <tr>
+                <td><a href="{% url 'travelDash:destination' id=trip.id %}">{{ trip.destination }}</a></td>
+                <td>{{ trip.start_date }}</td>
+                <td>{{ trip.end_date }}</td>
+                <td>{{ trip.description }}</td>
+            </tr>
+            {% endfor %}
+            {% for trip in tripsIJoined %}
+            <tr>
+                <td><a href="{% url 'travelDash:destination' id=trip.trip_id %}">{{ trip.trip.destination }}</a></td>
+                <td>{{ trip.trip.start_date }}</td>
+                <td>{{ trip.trip.end_date }}</td>
+                <td>{{ trip.trip.description }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div>
+        <h3>Others' Travel Plans</h3>
+        <table>
+            <tr>
+                <th>User ID</th>
+                <th>Trip facilitator</th>
+                <th>Destination</th>
+                <th>Travel Start Date</th>
+                <th>Travel End Date</th>
+                <th>Do you want to join?</th>
+            </tr>
+            {% for trip in otherTrips %}
+            <tr>
+                <td>{{trip.user.id}}</td>
+                <td>{{ trip.user.first_name }} {{ trip.user.last_name }}</td>
+                <td><a href="{% url 'travelDash:destination' id=trip.id %}">{{ trip.destination }}</a></td>
+                <td>{{ trip.start_date }}</td>
+                <td>{{ trip.end_date }}</td>
+                <td><a href="{% url 'travelDash:join_trip' id=trip.id %}">Join</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</body>
+
+</html>

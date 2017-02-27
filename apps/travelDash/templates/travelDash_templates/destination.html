@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Travel Buddy | Destination</title>
+    </head>
+    <body>
+        <a href="{% url 'travelDash:dashboard' %}">Home</a>
+        <a href="{% url 'loginReg:logout' %}">Logout</a>
+        <h1>{{destination.destination}}</h1>
+        <p>Planned by: {{destination.user.first_name}} {{ destination.user.last_name}}</p>
+        <p>Description: {{destination.description}}</p>
+        <p>First day of trip: {{destination.start_date}}</p>
+        <p>Last day of trip: {{destination.end_date}}</p>
+        <p>&nbsp;</p>
+        <h3>Other users joining the trip:</h3>
+        {% if destination.user.id != uid %}
+            <p>{{destination.user.first_name}} {{destination.user.last_name}}</p>
+        {% endif %}
+        {% for user in thisTrip %}
+            <p>{{ user.user.first_name }} {{ user.user.last_name }}</p>
+        {% endfor %}
+    </body>
+</html>
